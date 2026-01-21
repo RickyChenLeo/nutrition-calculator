@@ -142,6 +142,36 @@ export default function ResultCard({ results, onReset, t }) {
                 </div>
             </div>
 
+            {/* Recommended Supplements */}
+            <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+                <SectionHeader title="💡 營養補充建議 (Recommended Supplements)" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Protein Card */}
+                    <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 flex flex-col items-start h-full">
+                        <div className="text-3xl mb-3">🥤</div>
+                        <h4 className="font-bold text-gray-900 mb-2">補足蛋白質缺口</h4>
+                        <p className="text-xs text-gray-500 mb-4 flex-1 leading-relaxed">
+                            難以從食物攝取足夠蛋白質？乳清蛋白是高 CP 值且方便的選擇，幫助肌肉修復。
+                        </p>
+                        <a href="#" className="w-full bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition-colors shadow-sm">
+                            前往 iHerb 選購乳清 (優惠)
+                        </a>
+                    </div>
+
+                    {/* Vitamin Card */}
+                    <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 flex flex-col items-start h-full">
+                        <div className="text-3xl mb-3">💊</div>
+                        <h4 className="font-bold text-gray-900 mb-2">全方位營養防護</h4>
+                        <p className="text-xs text-gray-500 mb-4 flex-1 leading-relaxed">
+                            發現維生素B群、D、鎂、鋅、鈣、鐵攝取不足？不用瓶瓶罐罐，去 iHerb 挑選適合您的綜合補劑或單項補充品，一次補足代謝所需。
+                        </p>
+                        <a href="#" className="w-full border border-red-500 text-red-500 hover:bg-red-50 text-xs font-bold py-2.5 rounded-lg text-center transition-colors">
+                            前往選購維生素/礦物質 (優惠)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             {/* SECTION 1: Target Calculation Logic */}
             <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
                 <SectionHeader title={t.targetCalculation} />
