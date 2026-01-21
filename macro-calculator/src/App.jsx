@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import Header from './components/Header';
 import CalculatorForm from './components/CalculatorForm';
 import ResultCard from './components/ResultCard';
@@ -8,6 +8,9 @@ import { TRANSLATIONS } from './utils/translations';
 function App() {
   const [lang, setLang] = useState('zh');
   const t = TRANSLATIONS[lang];
+
+  // Ref for Auto-Scroll
+  const resultsRef = useRef(null);
 
   if (!t) return <div className="p-10 text-center">Loading resources... (Language: {lang})</div>;
 
@@ -32,6 +35,16 @@ function App() {
   });
 
   const [results, setResults] = useState(null);
+
+  // Auto-Scroll Effect
+  useEffect(() => {
+    if (results && resultsRef.current) {
+      // Use setTimeout to ensure DOM is updated and layout is settled
+      setTimeout(() => {
+        resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [results]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -206,7 +219,6 @@ function App() {
   };
 
   return (
-
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-apple-green selection:text-white pb-24 md:pb-10" >
       <div className="max-w-7xl mx-auto min-h-screen flex flex-col md:px-6 md:py-8">
 
@@ -246,7 +258,7 @@ function App() {
             </div>
 
             {/* RIGHT COLUMN: Results (60% on Desktop) - Sticky */}
-            <div className="md:col-span-7 lg:col-span-8 mt-8 md:mt-0 md:sticky md:top-8 transition-all duration-500">
+            <div ref={resultsRef} className="md:col-span-7 lg:col-span-8 mt-8 md:mt-0 md:sticky md:top-8 transition-all duration-500">
               {results ? (
                 <div className="bg-white rounded-[2.5rem] shadow-xl shadow-green-900/5 border border-white p-6 md:p-10 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-apple-green to-emerald-400"></div>
