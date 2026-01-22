@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TAIWAN_SPORTS_METS } from '../utils/calculator';
+import { TAIWAN_SPORTS_METS, calculateExerciseBurn } from '../utils/calculator';
+import { getExerciseOptions, COMPENDIUM_2024 } from '../data/compendium2024';
 import SearchableSelect from './SearchableSelect';
 
 const InputField = ({ label, name, type = "number", value, onChange, placeholder, suffix, optional = false }) => (
@@ -52,13 +53,19 @@ const RadioGroup = ({ label, name, options, value, onChange }) => (
 );
 
 export default function CalculatorForm({ values, onChange, onSubmit, onExerciseChange, onAddExercise, onRemoveExercise, t }) {
-    // Transform sports map to array for Select options
-    // Transform sports map to array for Select options
-    const sportOptions = Object.entries(TAIWAN_SPORTS_METS).map(([key, sport]) => ({
-        value: key,
-        label: t[sport.label] || sport.label,
-        description: sport.description ? (t[sport.description] || sport.description) : null
-    }));
+    // Load Compendium Options
+    const sportOptions = getExerciseOptions(t);
+
+    // Helper to find sport definition (support both legacy and new)
+    const getSportDef = (type) => {
+        // Try finding in New Compendium first (Flattened search)
+        for (const cat of COMPENDIUM_2024) {
+            const found = cat.items.find(i => i.id === type);
+            if (found) return found;
+        }
+        // Fallback to Legacy (for safety or mixed usage)
+        return TAIWAN_SPORTS_METS[type];
+    };
 
     return (
         <form onSubmit={onSubmit} className="space-y-6">
@@ -123,7 +130,7 @@ export default function CalculatorForm({ values, onChange, onSubmit, onExerciseC
                 {/* List of Exercises */}
                 <div className="space-y-4 mb-4">
                     {values.exercises.map((ex, index) => {
-                        const sportDef = TAIWAN_SPORTS_METS[ex.type];
+                        const sportDef = getSportDef(ex.type);
                         return (
                             <div key={ex.id} className="relative bg-white border border-gray-200 rounded-xl p-3 shadow-sm animate-in fade-in slide-in-from-top-1">
                                 {/* Remove Button */}
@@ -142,7 +149,8 @@ export default function CalculatorForm({ values, onChange, onSubmit, onExerciseC
                                     <SearchableSelect
                                         options={sportOptions.filter(opt =>
                                             // Smart Filter: Show if it's the CURRENT value of this row, OR if it's NOT selected in any other row
-                                            opt.value === ex.type || !values.exercises.some(otherEx => otherEx.type === opt.value)
+                                            // logic adjusted to support isHeader
+                                            opt.isHeader || opt.value === ex.type || !values.exercises.some(otherEx => otherEx.type === opt.value)
                                         )}
                                         value={ex.type}
                                         onChange={(val) => onExerciseChange(index, 'type', val)}
@@ -243,11 +251,11 @@ export default function CalculatorForm({ values, onChange, onSubmit, onExerciseC
                         onChange={onChange}
                         className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-apple-green focus:border-transparent transition-all appearance-none"
                     >
-                        <option value="enthusiast">運動愛好者</option>
-                        <option value="strength_power">力量型</option>
-                        <option value="mixed_team">混合型</option>
-                        <option value="endurance">耐力型</option>
-                        <option value="physique">體態雕塑</option>
+                        <option value="enthusiast">{t.profile_enthusiast}</option>
+                        <option value="strength_power">{t.profile_strength_power}</option>
+                        <option value="mixed_team">{t.profile_mixed_team}</option>
+                        <option value="endurance">{t.profile_endurance}</option>
+                        <option value="physique">{t.profile_physique}</option>
                     </select>
                 </div>
 

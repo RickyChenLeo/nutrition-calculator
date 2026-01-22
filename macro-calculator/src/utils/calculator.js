@@ -45,28 +45,18 @@ export const TAIWAN_SPORTS_METS = {
         minMet: 3.5,
         maxMet: 6.0
     },
-    weight_training_functional: {
-        label: 'weight_training_functional',
-        description: 'weight_training_functional_sub',
-        hasIntensity: true,
-        minMet: 6.0,
-        maxMet: 9.0
-    },
+
     weight_training_hiit: {
         label: 'weight_training_hiit',
         description: 'weight_training_hiit_sub',
         hasIntensity: true,
         minMet: 7.0,
-        maxMet: 11.0
-    },
-    hiit_cardio: {
-        label: 'hiit_cardio',
-        hasIntensity: true,
-        minMet: 7.0,
         maxMet: 12.0
     },
+
     crossfit: {
         label: 'crossfit',
+        description: 'weight_training_functional_sub',
         hasIntensity: true,
         minMet: 6.0,
         maxMet: 13.0

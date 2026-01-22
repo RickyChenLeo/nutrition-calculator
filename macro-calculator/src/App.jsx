@@ -3,6 +3,7 @@ import Header from './components/Header';
 import CalculatorForm from './components/CalculatorForm';
 import ResultCard from './components/ResultCard';
 import { calculateMifflinStJeor, calculateKatchMcArdle, calculateTDEE, calculateExerciseBurn, calculateGoalCalories, calculateGoalMacros, calculateMicros, TAIWAN_SPORTS_METS } from './utils/calculator';
+import { COMPENDIUM_2024 } from './data/compendium2024';
 import { TRANSLATIONS } from './utils/translations';
 
 function App() {
@@ -123,7 +124,21 @@ function App() {
     if (formData.exercises.length > 0) {
       formData.exercises.forEach(ex => {
         if (ex.type) {
-          const sportObj = TAIWAN_SPORTS_METS[ex.type];
+          // Lookup Logic: New Compendium -> Legacy
+          let sportObj = null;
+          // 1. Try New Compendium (Flattened Search)
+          for (const cat of COMPENDIUM_2024) {
+            const found = cat.items.find(i => i.id === ex.type);
+            if (found) {
+              sportObj = found;
+              break;
+            }
+          }
+          // 2. Fallback to Legacy
+          if (!sportObj) {
+            sportObj = TAIWAN_SPORTS_METS[ex.type];
+          }
+
           if (sportObj) {
             const burn = calculateExerciseBurn(
               parseFloat(formData.weight),
@@ -134,9 +149,10 @@ function App() {
             totalExerciseBurn += burn;
 
             // Store detail for UI
-            const label = sportObj.label;
+            // New items use 'id' as translation key. Legacy uses 'label' prop.
+            const labelKey = sportObj.id || sportObj.label || ex.type;
             exerciseDetails.push({
-              name: t[label] || label,
+              name: t[labelKey] || labelKey,
               calories: burn
             });
           }
