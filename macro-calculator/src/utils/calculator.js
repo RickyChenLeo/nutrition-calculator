@@ -1,15 +1,20 @@
 // BMR Formulas
 export const calculateMifflinStJeor = (gender, weightKg, heightCm, ageYears) => {
+    if (weightKg <= 0 || heightCm <= 0 || ageYears <= 0) return 0;
     const base = 10 * weightKg + 6.25 * heightCm - 5 * ageYears;
     return gender === 'male' ? base + 5 : base - 161;
 };
 
 export const calculateKatchMcArdle = (weightKg, bodyFatPercentage) => {
+    if (weightKg <= 0 || bodyFatPercentage < 0) return 0;
     const leanBodyMass = weightKg * (1 - bodyFatPercentage / 100);
     return 370 + (21.6 * leanBodyMass);
 };
 
 export const calculateBMR = (gender, weightKg, heightCm, ageYears, bodyFat = null) => {
+    // Basic Validation
+    if (weightKg <= 0 || heightCm <= 0 || ageYears <= 0) return 0;
+
     if (bodyFat && bodyFat > 0) {
         return Math.round(calculateKatchMcArdle(weightKg, parseFloat(bodyFat)));
     }
@@ -444,15 +449,23 @@ export const calculateGoalMacros = (calories, goal, athleteProfile = 'enthusiast
  * Ref: NIH / ISSN / AIS Guidelines
  * @param {string} gender - 'male' | 'female'
  * @param {string} dailyLoad - 'rest' | 'light' | 'moderate' | 'high'
- * @returns {object} { magnesium, zinc, iron, vitaminD, calcium, bComplex }
+ * @param {number} proteinGrams - Total daily protein intake (to optimize B6)
+ * @returns {object} { magnesium, zinc, iron, vitaminD, calcium, vitaminB6, vitaminB12 }
  */
-export const calculateMicros = (gender, dailyLoad) => {
+export const calculateMicros = (gender, dailyLoad, proteinGrams = 0) => {
     const isMale = gender === 'male';
-    const isHighLoad = dailyLoad === 'high' || dailyLoad === 'moderate'; // Assumption for increased needs
+    const isHighLoad = dailyLoad === 'high' || dailyLoad === 'moderate';
+
+    // Vitamin B6 Calculation: ~0.02mg per gram of protein (DRI baseline is linked to protein)
+    // Base: 1.3mg. Dynamic: Protein * 0.02.
+    let targetB6 = 1.3;
+    if (proteinGrams > 0) {
+        targetB6 = Math.max(1.3, parseFloat((proteinGrams * 0.02).toFixed(1)));
+    }
 
     return {
         magnesium: {
-            val: (isMale ? 420 : 320) * (isHighLoad ? 1.1 : 1.0), // +10% for active sweating
+            val: Math.round((isMale ? 420 : 320) * (isHighLoad ? 1.1 : 1.0)),
             unit: 'mg'
         },
         zinc: {
@@ -464,16 +477,20 @@ export const calculateMicros = (gender, dailyLoad) => {
             unit: 'mg'
         },
         vitaminD: {
-            val: '600 - 2000', // Range
+            val: isHighLoad ? '1000 - 2000' : '600 - 1000',
             unit: 'IU'
         },
         calcium: {
             val: 1000,
             unit: 'mg'
         },
-        bComplex: {
-            val: 'B6/B12',
-            unit: 'Complex'
+        vitaminB6: {
+            val: targetB6,
+            unit: 'mg'
+        },
+        vitaminB12: {
+            val: 2.4, // RDA
+            unit: 'mcg'
         }
     };
 };

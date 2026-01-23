@@ -98,6 +98,24 @@ export const TRANSLATIONS = {
         cycling_indoor: "Indoor Cycling / Spin",
         swimming: "Swimming",
 
+        // New Sports 
+        boxing_punching_bag: "Boxing: Punching Bag",
+        boxing_sparring: "Boxing: Sparring",
+        martial_arts_general: "Martial Arts: Judo/Karate",
+        tai_chi: "Tai Chi",
+        table_tennis_competitive: "Table Tennis: Competitive",
+        table_tennis_general: "Table Tennis: General",
+        badminton_competitive: "Badminton: Competitive",
+        badminton_social: "Badminton: Social",
+        tennis_doubles: "Tennis: Doubles",
+        golf_carrying: "Golf: Carrying Clubs",
+        golf_cart: "Golf: Using Cart",
+        bowling: "Bowling",
+        billiards: "Billiards / Pool",
+        swimming_vigorous: "Swimming: Vigorous",
+        swimming_leisure: "Swimming: Leisure",
+        bicycling_outdoor_vigorous: "Cycling: Outdoor (Fast)",
+
         // Multi-Exercise UI
         addExercise: "Add Exercise",
         removeExercise: "Remove",
@@ -520,7 +538,26 @@ export const TRANSLATIONS = {
         volunteering_sitting: "志工 (坐著)",
         volunteering_standing: "志工 (站著)",
         gaming_seated: "打電動 (坐著)",
-        gaming_active: "打電動 (VR / 體感)",
+        gaming_active: "打電動 (VR / 体感)",
+
+        // New Sports Translations
+        boxing_punching_bag: "拳擊 (沙袋訓練)",
+        boxing_sparring: "拳擊 (對打)",
+        martial_arts_general: "武術 (柔道/空手道/踢拳)",
+        tai_chi: "太極拳",
+        table_tennis_competitive: "桌球 (比賽)",
+        table_tennis_general: "桌球 (一般對打)",
+        badminton_competitive: "羽球 (競技)",
+        badminton_social: "羽球 (休閒)",
+        tennis_doubles: "網球 (雙打)",
+        golf_carrying: "高爾夫 (自背球桿)",
+        golf_cart: "高爾夫 (搭乘球車)",
+        bowling: "保齡球",
+        billiards: "撞球",
+        swimming_vigorous: "游泳 (快速/自由式)",
+        swimming_leisure: "游泳 (慢游)",
+        bicycling_outdoor_vigorous: "戶外騎行 (快 19-22 km/h)",
+        bicycling_stationary: "室內飛輪 (中-高強度)", // Update existing
 
         // Micronutrients
         micros_title: "重點微量營養素建議 (Daily Micronutrients)",
@@ -531,6 +568,8 @@ export const TRANSLATIONS = {
         micro_vitaminD: "維生素 D (Vit D)",
         micro_calcium: "鈣 (Calcium)",
         micro_bComplex: "B群 (B-Complex)",
+        micro_vitaminB6: "維生素 B6 (Vit B6)",
+        micro_vitaminB12: "維生素 B12 (Vit B12)",
     },
     jp: {
         title: "マクロ栄養素計算機",

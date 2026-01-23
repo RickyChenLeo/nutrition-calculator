@@ -106,30 +106,48 @@ export default function ResultCard({ results, onReset, t }) {
                 <SectionHeader title={t.micros_title || "重點微量營養素建議"} />
 
                 {results.micros && (
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-                        <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
-                            <p className="text-xs text-gray-500 font-bold uppercase">{t.micro_vitaminD || "Vitamin D"}</p>
-                            <p className="text-lg font-black text-gray-900">{results.micros?.vitaminD?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.vitaminD?.unit}</span></p>
+                    <div className="space-y-4 mb-4">
+                        {/* 1. Vitamins Row */}
+                        <div>
+                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 pl-1">Vitamins</p>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {/* Vitamin D - Importance Highlight */}
+                                <div className="bg-orange-50/50 p-3 rounded-xl border border-orange-100 md:col-span-1">
+                                    <p className="text-xs text-orange-600 font-bold uppercase truncate">{t.micro_vitaminD || "Vitamin D"}</p>
+                                    <p className="text-lg font-black text-gray-900 leading-none mt-1">{results.micros?.vitaminD?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.vitaminD?.unit}</span></p>
+                                </div>
+                                <div className="bg-orange-50/50 p-3 rounded-xl border border-orange-100">
+                                    <p className="text-xs text-orange-600 font-bold uppercase truncate">{t.micro_vitaminB6 || "Vitamin B6"}</p>
+                                    <p className="text-lg font-black text-gray-900 leading-none mt-1">{results.micros?.vitaminB6?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.vitaminB6?.unit}</span></p>
+                                </div>
+                                <div className="bg-orange-50/50 p-3 rounded-xl border border-orange-100">
+                                    <p className="text-xs text-orange-600 font-bold uppercase truncate">{t.micro_vitaminB12 || "Vitamin B12"}</p>
+                                    <p className="text-lg font-black text-gray-900 leading-none mt-1">{results.micros?.vitaminB12?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.vitaminB12?.unit}</span></p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
-                            <p className="text-xs text-gray-500 font-bold uppercase">{t.micro_magnesium || "Magnesium"}</p>
-                            <p className="text-lg font-black text-gray-900">{Math.round(results.micros?.magnesium?.val || 0)} <span className="text-xs font-medium text-gray-400">{results.micros?.magnesium?.unit}</span></p>
-                        </div>
-                        <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
-                            <p className="text-xs text-gray-500 font-bold uppercase">{t.micro_zinc || "Zinc"}</p>
-                            <p className="text-lg font-black text-gray-900">{results.micros?.zinc?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.zinc?.unit}</span></p>
-                        </div>
-                        <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
-                            <p className="text-xs text-gray-500 font-bold uppercase">{t.micro_iron || "Iron"}</p>
-                            <p className="text-lg font-black text-gray-900">{results.micros?.iron?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.iron?.unit}</span></p>
-                        </div>
-                        <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
-                            <p className="text-xs text-gray-500 font-bold uppercase">{t.micro_calcium || "Calcium"}</p>
-                            <p className="text-lg font-black text-gray-900">{results.micros?.calcium?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.calcium?.unit}</span></p>
-                        </div>
-                        <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
-                            <p className="text-xs text-gray-500 font-bold uppercase">{t.micro_bComplex || "B-Complex"}</p>
-                            <p className="text-lg font-black text-gray-900">{results.micros?.bComplex?.val}</p>
+
+                        {/* 2. Minerals Row */}
+                        <div>
+                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 pl-1">Minerals</p>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                                    <p className="text-xs text-blue-600 font-bold uppercase truncate">{t.micro_magnesium || "Magnesium"}</p>
+                                    <p className="text-lg font-black text-gray-900 leading-none mt-1">{Math.round(results.micros?.magnesium?.val || 0)} <span className="text-xs font-medium text-gray-400">{results.micros?.magnesium?.unit}</span></p>
+                                </div>
+                                <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                                    <p className="text-xs text-blue-600 font-bold uppercase truncate">{t.micro_zinc || "Zinc"}</p>
+                                    <p className="text-lg font-black text-gray-900 leading-none mt-1">{results.micros?.zinc?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.zinc?.unit}</span></p>
+                                </div>
+                                <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                                    <p className="text-xs text-blue-600 font-bold uppercase truncate">{t.micro_iron || "Iron"}</p>
+                                    <p className="text-lg font-black text-gray-900 leading-none mt-1">{results.micros?.iron?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.iron?.unit}</span></p>
+                                </div>
+                                <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                                    <p className="text-xs text-blue-600 font-bold uppercase truncate">{t.micro_calcium || "Calcium"}</p>
+                                    <p className="text-lg font-black text-gray-900 leading-none mt-1">{results.micros?.calcium?.val} <span className="text-xs font-medium text-gray-400">{results.micros?.calcium?.unit}</span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -142,35 +160,7 @@ export default function ResultCard({ results, onReset, t }) {
                 </div>
             </div>
 
-            {/* Recommended Supplements */}
-            <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-                <SectionHeader title="💡 營養補充建議 (Recommended Supplements)" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Protein Card */}
-                    <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 flex flex-col items-start h-full">
-                        <div className="text-3xl mb-3">🥤</div>
-                        <h4 className="font-bold text-gray-900 mb-2">補足蛋白質缺口</h4>
-                        <p className="text-xs text-gray-500 mb-4 flex-1 leading-relaxed">
-                            難以從食物攝取足夠蛋白質？乳清蛋白是高 CP 值且方便的選擇，幫助肌肉修復。
-                        </p>
-                        <a href="#" className="w-full bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-2.5 rounded-lg text-center transition-colors shadow-sm">
-                            前往 iHerb 選購乳清 (優惠)
-                        </a>
-                    </div>
 
-                    {/* Vitamin Card */}
-                    <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 flex flex-col items-start h-full">
-                        <div className="text-3xl mb-3">💊</div>
-                        <h4 className="font-bold text-gray-900 mb-2">全方位營養防護</h4>
-                        <p className="text-xs text-gray-500 mb-4 flex-1 leading-relaxed">
-                            發現維生素B群、D、鎂、鋅、鈣、鐵攝取不足？不用瓶瓶罐罐，去 iHerb 挑選適合您的綜合補劑或單項補充品，一次補足代謝所需。
-                        </p>
-                        <a href="#" className="w-full border border-red-500 text-red-500 hover:bg-red-50 text-xs font-bold py-2.5 rounded-lg text-center transition-colors">
-                            前往選購維生素/礦物質 (優惠)
-                        </a>
-                    </div>
-                </div>
-            </div>
 
             {/* SECTION 1: Target Calculation Logic */}
             <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">

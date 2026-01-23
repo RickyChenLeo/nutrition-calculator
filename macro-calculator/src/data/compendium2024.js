@@ -3,8 +3,9 @@ export const COMPENDIUM_2024 = [
         category: "cat_bicycling",
         items: [
             { id: 'bicycling_leisure', met: 6.8 },
-            { id: 'bicycling_stationary', met: 6.8 },
+            { id: 'bicycling_stationary', met: 7.0, note: "Moderate-High" }, // Updated
             { id: 'bicycling_mountain', met: 8.5 },
+            { id: 'bicycling_outdoor_vigorous', met: 7.5, note: "19-22 km/h" },
         ]
     },
     {
@@ -15,6 +16,16 @@ export const COMPENDIUM_2024 = [
             { id: 'calisthenics', met: 8.0 }, // Updated MET 8.0
             { id: 'pilates', met: 3.0 },
             { id: 'circuit_training', met: 8.0 },
+
+        ]
+    },
+    {
+        category: "Combat & Martial Arts (格鬥與技擊)",
+        items: [
+            { id: 'boxing_sparring', met: 7.8, note: "In ring" },
+            { id: 'boxing_punching_bag', met: 5.5, note: "Training" },
+            { id: 'martial_arts_general', met: 10.3, note: "Heavy outcome" },
+            { id: 'tai_chi', met: 3.0, note: "Slow movement" },
         ]
     },
     {
@@ -98,7 +109,25 @@ export const COMPENDIUM_2024 = [
             { id: 'baseball_bat', met: 4.0 }, // New
             { id: 'soccer', met: 10.0 }, // Updated MET 10.0
             { id: 'tennis_singles', met: 8.0 }, // Updated MET 8.0
-            { id: 'badminton', met: 7.0 },
+        ]
+    },
+    {
+        category: "Racket Sports (拍類運動)",
+        items: [
+            { id: 'table_tennis_competitive', met: 4.1, note: "Match play" },
+            { id: 'table_tennis_general', met: 4.0, note: "Recreational" },
+            { id: 'badminton_competitive', met: 7.0, note: "High intensity" },
+            { id: 'badminton_social', met: 5.5, note: "Moderate effort" },
+            { id: 'tennis_doubles', met: 6.0, note: "Moderate intensity" },
+        ]
+    },
+    {
+        category: "cat_leisure_skill", // New Category
+        items: [
+            { id: 'golf_carrying', met: 4.8, note: "Walking course" },
+            { id: 'golf_cart', met: 3.5, note: "Minimal walking" },
+            { id: 'bowling', met: 3.0, note: "Indoor lane" },
+            { id: 'billiards', met: 2.5, note: "Standing & walking" },
         ]
     },
     {
@@ -122,6 +151,8 @@ export const COMPENDIUM_2024 = [
         category: "cat_water_activities",
         items: [
             { id: 'swimming_laps', met: 8.3 },
+            { id: 'swimming_vigorous', met: 9.8, note: "Freestyle/Crawling" },
+            { id: 'swimming_leisure', met: 5.8, note: "Recreational" },
             { id: 'surfing', met: 3.0 },
             { id: 'kayaking', met: 5.0 },
         ]
@@ -200,16 +231,26 @@ export const getExerciseOptions = (t) => {
     }
 
     // 2. Add All Items by Category
+    const addedValues = new Set(pinnedItems.map(i => i.value));
+
     COMPENDIUM_2024.forEach(cat => {
-        options.push({ label: translate(cat.category), value: `header_${cat.category}`, isHeader: true });
-        cat.items.forEach(item => {
-            options.push({
-                value: item.id,
-                label: translate(item.id),
-                met: item.met,
-                category: translate(cat.category)
+        // Collect items for this category that haven't been added yet
+        const categoryItems = cat.items.filter(item => !addedValues.has(item.id));
+
+        if (categoryItems.length > 0) {
+            options.push({ label: translate(cat.category), value: `header_${cat.category}`, isHeader: true });
+
+            categoryItems.forEach(item => {
+                options.push({
+                    value: item.id,
+                    label: item.label || translate(item.id),
+                    met: item.met,
+                    description: item.note,
+                    category: translate(cat.category)
+                });
+                addedValues.add(item.id); // Mark as added
             });
-        });
+        }
     });
 
     return options;

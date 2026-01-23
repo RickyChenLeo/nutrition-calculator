@@ -206,7 +206,8 @@ function App() {
 
     const micros = calculateMicros(
       formData.gender,
-      macros.dailyLoad
+      macros.dailyLoad,
+      macros.protein
     );
 
     setResults({

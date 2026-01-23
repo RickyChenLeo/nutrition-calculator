@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculateGoalCalories, calculateGoalMacros, calculateExerciseBurn } from './calculator';
+import { calculateGoalCalories, calculateGoalMacros, calculateExerciseBurn, calculateMicros } from './calculator';
 
 describe('Calculator Logic - The Gold Standard', () => {
 
@@ -92,6 +92,28 @@ describe('Calculator Logic - The Gold Standard', () => {
         expect(macroResult.protein).not.toBeNaN();
         expect(macroResult.fats).not.toBeNaN();
         expect(macroResult.carbs).not.toBeNaN();
+    });
+
+    // Scenario F: Micronutrient Optimization
+    it('Scenario F: Micronutrient Optimization - B6 & Vit D', () => {
+        // 1. High Protein diet -> Should have higher B6
+        // Protein = 200g
+        const highProteinMicros = calculateMicros('male', 'moderate', 200);
+        // 200 * 0.02 = 4.0mg
+        expect(highProteinMicros.vitaminB6.val).toBe(4.0);
+
+        // 2. Low Protein -> Should default to 1.3mg baseline
+        // 40 * 0.02 = 0.8 -> Should be floored at 1.3
+        const lowProteinMicros = calculateMicros('female', 'light', 40);
+        expect(lowProteinMicros.vitaminB6.val).toBe(1.3);
+
+        // 3. High Load -> Higher Vit D
+        const highLoadD = calculateMicros('male', 'high', 150);
+        expect(highLoadD.vitaminD.val).toContain('1000 - 2000');
+
+        // 4. Low Load -> Standard Vit D
+        const lowLoadD = calculateMicros('female', 'light', 100);
+        expect(lowLoadD.vitaminD.val).toContain('600 - 1000');
     });
 
 });
