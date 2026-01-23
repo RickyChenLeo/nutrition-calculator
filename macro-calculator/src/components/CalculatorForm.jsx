@@ -122,9 +122,26 @@ export default function CalculatorForm({ values, onChange, onSubmit, onExerciseC
             {/* Exercise Tracking Section - MULTI */}
             <div className="border-t border-gray-100 pt-6">
                 <div className="flex justify-between items-center mb-2 ml-1">
-                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                        {t.specificActivity}
-                    </label>
+                    <div className="flex items-center gap-1">
+                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                            {t.specificActivity}
+                        </label>
+                        <div className="relative group">
+                            <span className="cursor-help text-gray-400 hover:text-apple-green transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                                </svg>
+                            </span>
+                            {/* Tooltip */}
+                            <div className="absolute left-0 bottom-full mb-2 w-64 p-3 bg-gray-800 text-white text-xs rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none">
+                                <div className="font-bold mb-1 text-apple-green">MET (代謝當量)</div>
+                                <p className="leading-relaxed opacity-90">
+                                    衡量運動強度的單位。1 MET 代表靜坐不動的消耗。數值越高，代表該運動強度越高、消耗熱量越多。
+                                </p>
+                                <div className="absolute left-3 -bottom-1 w-2 h-2 bg-gray-800 transform rotate-45"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* List of Exercises */}

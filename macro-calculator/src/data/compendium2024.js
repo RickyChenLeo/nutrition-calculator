@@ -25,13 +25,7 @@ export const COMPENDIUM_2024 = [
             { id: 'tap_dance', met: 4.8 },
         ]
     },
-    {
-        category: "cat_fishing_hunting",
-        items: [
-            { id: 'fishing_general', met: 3.5 },
-            { id: 'hunting_general', met: 5.0 },
-        ]
-    },
+
     {
         category: "cat_home_activities",
         items: [
@@ -50,7 +44,6 @@ export const COMPENDIUM_2024 = [
     {
         category: "cat_inactivity",
         items: [
-            { id: 'sleeping', met: 0.95, pinned: true },
             { id: 'sitting_quietly', met: 1.3 },
             { id: 'desk_work', met: 1.3 },
         ]
@@ -91,7 +84,6 @@ export const COMPENDIUM_2024 = [
         category: "cat_self_care",
         items: [
             { id: 'showering', met: 2.0 },
-            { id: 'dressing_undressing', met: 2.5 },
         ]
     },
     // Removed specific Sexual Activity Category (merged to Miscellaneous/Lifestyle)
@@ -141,14 +133,7 @@ export const COMPENDIUM_2024 = [
             { id: 'skating_ice', met: 5.5 },
         ]
     },
-    {
-        category: "cat_religious_activities",
-        items: [
-            { id: 'sitting_church', met: 1.3 },
-            { id: 'standing_church', met: 1.8 },
-            { id: 'praising', met: 5.0 },
-        ]
-    },
+
     {
         category: "cat_volunteer_activities",
         items: [
@@ -164,10 +149,16 @@ export const COMPENDIUM_2024 = [
         ]
     },
     {
+        category: "cat_fishing_hunting",
+        items: [
+            { id: 'fishing_general', met: 3.5 },
+            { id: 'hunting_general', met: 5.0 },
+        ]
+    },
+    {
         category: "cat_miscellaneous", // "Lifestyle & Others" mapped here
         items: [
             { id: 'sitting_playing_cards', met: 1.5 },
-            { id: 'standing_talking', met: 1.8 },
             { id: 'sexual_activity_active', met: 2.8 }, // Moved here (Bottom)
         ]
     },
@@ -197,7 +188,7 @@ export const getExerciseOptions = (t) => {
     });
 
     // Sort pinned items by specific order requested
-    const pinnedOrder = ['sleeping', 'walking_commuting', 'weight_lifting', 'jogging'];
+    const pinnedOrder = ['walking_commuting', 'weight_lifting', 'jogging'];
     pinnedItems.sort((a, b) => {
         return pinnedOrder.indexOf(a.value) - pinnedOrder.indexOf(b.value);
     });
