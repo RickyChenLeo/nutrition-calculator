@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import Header from './components/Header';
 import CalculatorForm from './components/CalculatorForm';
 import ResultCard from './components/ResultCard';
+import Footer from './components/Footer';
 import { calculateMifflinStJeor, calculateKatchMcArdle, calculateTDEE, calculateExerciseBurn, calculateGoalCalories, calculateGoalMacros, calculateMicros, TAIWAN_SPORTS_METS } from './utils/calculator';
 import { COMPENDIUM_2024 } from './data/compendium2024';
 import { TRANSLATIONS } from './utils/translations';
@@ -301,6 +302,7 @@ function App() {
           </div>
         </main>
       </div>
+      <Footer />
     </div >
   );
 }

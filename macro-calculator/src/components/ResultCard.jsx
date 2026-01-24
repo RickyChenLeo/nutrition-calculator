@@ -1,4 +1,5 @@
 import React from 'react';
+import RecommendedGear from './RecommendedGear';
 
 const InfoRow = ({ label, value, subtext, highlight = false, sign = null }) => (
     <div className={`flex justify-between items-center py-3 border-b border-gray-100 last:border-0 ${highlight ? 'bg-green-50/50 -mx-5 px-5' : ''}`}>
@@ -271,6 +272,12 @@ export default function ResultCard({ results, onReset, t }) {
                     {t.copyResult}
                 </button>
             </div>
+            {/* Recommended Gear Section (Monetization Placeholder) */}
+            <RecommendedGear
+                athleteProfile={results.athleteProfile}
+                goal={results.goal}
+                t={t}
+            />
         </div>
     );
 }
