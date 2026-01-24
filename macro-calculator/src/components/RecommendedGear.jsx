@@ -40,13 +40,34 @@ export default function RecommendedGear({ athleteProfile, goal, t = {} }) {
     // Default Fallback
     let recommendationKey = 'general';
 
-    // Logic for Specific Profiles matching Config Keys
-    if (athleteProfile === 'strength_power' || athleteProfile === 'enthusiast' || goal === 'bulk') {
-        recommendationKey = 'protein';
-    } else if (athleteProfile === 'endurance' || athleteProfile === 'mixed_team') {
-        recommendationKey = 'endurance';
-    } else if (goal === 'cut') {
+    // 🔥 創業工程師優化版邏輯 (Logic Refined for Conversion)
+
+    // 1. 最高優先級：減脂目標 (Cut)
+    // 如果使用者想瘦，不管他做什麼運動，推燃脂劑轉換率最高
+    if (goal === 'cut') {
         recommendationKey = 'fatBurner';
+    }
+    // 2. 次要優先級：增肌目標 (Bulk)
+    // 如果想變壯，一定要推乳清
+    else if (goal === 'bulk') {
+        recommendationKey = 'protein';
+    }
+    // 3. 根據運動類型 (Profile)
+    else {
+        switch (athleteProfile) {
+            case 'strength_power': // 舉重、健力
+            case 'enthusiast':     // 健身狂
+            case 'mixed_team':     // 🏀 籃球、棒球 (改到這裡！推肌酸/乳清更適合)
+                recommendationKey = 'protein';
+                break;
+
+            case 'endurance':      // 馬拉松、長跑
+                recommendationKey = 'endurance';
+                break;
+
+            default:
+                recommendationKey = 'general';
+        }
     }
 
     const rec = affiliateConfig[recommendationKey];
